@@ -10,7 +10,7 @@
 </body>
 <script>
     function kaprekar(numero){
-        if(numero == 6174){
+        if(numero === 6174){
             return {iteraciones: 0, paso: ["El numero de entrada ya es la constante de Kaprekar (6174)."] }; //si el numero es el mismo que la constante de Kapekar,devuelve esto.
         }
 
@@ -60,9 +60,16 @@
 
     //Llamamos a la funcion kaprekar para calcular las iteraciones y los pasos necesarios hasta llegar al numero Kaprekar
     const resultado = kaprekar(numero);
-    document.write(`Iteraciones necesarias: ${resultado.iteraciones}<br>Pasos:<br>`);   //Muestra el resultado en el navegador
-    resultado.pasos.forEach(paso => document.write(`${paso}<br>`));;
-
+    if (typeof resultado === 'object') {
+    document.write(`Iteraciones necesarias: ${resultado.iteraciones}<br>Pasos:<br>`);
+        if (resultado.pasos) {
+            resultado.pasos.forEach(paso => document.write(`${paso}<br>`));
+        } else {
+            document.write("No se requieren pasos adicionales, ya tienes la constante de kaprekar");
+        }
+    } else {
+        document.write(resultado);
+    }
 
 </script>
 </html>
