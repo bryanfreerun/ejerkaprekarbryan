@@ -11,18 +11,18 @@
 <script>
     function kaprekar(numero){
         if(numero == 6174){
-            return {iteraciones: 0, paso: ["El numero de entrada ya es la constante de Kaprekar (6174)."] };
+            return {iteraciones: 0, paso: ["El numero de entrada ya es la constante de Kaprekar (6174)."] }; //si el numero es el mismo que la constante de Kapekar,devuelve esto.
         }
 
         if(numero<1000 || numero>9999 || isNaN(numero)) {
-            return {iteraciones: -1, pasos: ["El numero tiene que ser un numero entero positivo de 4 digitos."] };
+            return {iteraciones: -1, pasos: ["El numero tiene que ser un numero entero positivo de 4 digitos."] }; //Correcion de errores,si es menor y si es mayor de 4 digitos, y si es un numero.
         }
 
         let iteraciones = 0;
         let pasos = [];
 
         while (numero !== 6174) {
-        let ascendente = ordenarDigitos(numero, true);
+        let ascendente = ordenarDigitos(numero, true);  
         let descendente = ordenarDigitos(numero, false);
 
         let diferencia = descendente - ascendente;
@@ -35,24 +35,28 @@
         return { iteraciones, pasos };
     }
     function ordenarDigitos(numero, ascendente) {
-        let digitos = numero.toString().split('');
+        let digitos = numero.toString().split(''); //Convierto el numero en una cadena,luego esa cadena la dividimos en un array,convirtiendo cada elemento en un digito
         if (digitos.length < 4) {
-            digitos.unshift('0'.repeat(4 - digitos.length));
+            digitos.unshift('0'.repeat(4 - digitos.length)); //Si tiene menos de 4 digitos, se le añade 0 a la izquierda hasta tener 4 digitos.
         }
 
-        if (ascendente) {
-            digitos.sort((a, b) => a - b);
+        if (ascendente) {   //Dependiendo del parametro
+            digitos.sort((a, b) => a - b); 
         } else {
-            digitos.sort((a, b) => b - a);
+            digitos.sort((a, b) => b - a); 
         }
 
         return parseInt(digitos.join(''));
     }
 
-    let numero = prompt('Introduce un numero');
+    let numero = prompt('Introduce un numero'); //Pido un numero al usuario
 
     numero = parseInt(numero); //lo convierte en numero entero
     
+    const resultado = kaprekarIterations(numero);
+    console.log(`Iteraciones necesarias: ${resultado.iteraciones}`);
+    console.log("Pasos:");
+    resultado.pasos.forEach(paso => console.log(paso));
 
 
 </script>
