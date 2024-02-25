@@ -18,21 +18,26 @@
             return {iteraciones: -1, pasos: ["El numero tiene que ser un numero entero positivo de 4 digitos."] }; //Correcion de errores,si es menor y si es mayor de 4 digitos, y si es un numero.
         }
 
+        //Se crea variables para guardar los pasos y las iteraciones
         let iteraciones = 0;
         let pasos = [];
 
+        //Bucle que se sale cuando el numero sea igual que le de Kaprekar(6174).
         while (numero !== 6174) {
-        let ascendente = ordenarDigitos(numero, true);  
-        let descendente = ordenarDigitos(numero, false);
 
-        let diferencia = descendente - ascendente;
-        pasos.push(`${descendente} - ${ascendente} = ${diferencia}`);
+            //Ordenamos los digitos del numero de orden creciente y decreciente.
+            let ascendente = ordenarDigitos(numero, true);  
+            let descendente = ordenarDigitos(numero, false);
 
-        numero = diferencia;
-        iteraciones++;
+            //Calculamos la diferencia
+            let diferencia = descendente - ascendente;
+            pasos.push(`${descendente} - ${ascendente} = ${diferencia}`);
+
+            numero = diferencia;
+            iteraciones++;
         }
 
-        return { iteraciones, pasos };
+        return { iteraciones, pasos }; //Devuelve el numero de iteraciones y los pasos
     }
     function ordenarDigitos(numero, ascendente) {
         let digitos = numero.toString().split(''); //Convierto el numero en una cadena,luego esa cadena la dividimos en un array,convirtiendo cada elemento en un digito
@@ -40,23 +45,23 @@
             digitos.unshift('0'.repeat(4 - digitos.length)); //Si tiene menos de 4 digitos, se le añade 0 a la izquierda hasta tener 4 digitos.
         }
 
-        if (ascendente) {   //Dependiendo del parametro
+        if (ascendente) {   //Dependiendo del parametro los ordenade de manera decreciente o creciente
             digitos.sort((a, b) => a - b); 
         } else {
             digitos.sort((a, b) => b - a); 
         }
 
-        return parseInt(digitos.join(''));
+        return parseInt(digitos.join('')); //Los digitos ordenados pasan a ser un numero entero
     }
 
     let numero = prompt('Introduce un numero'); //Pido un numero al usuario
 
     numero = parseInt(numero); //lo convierte en numero entero
-    
-    const resultado = kaprekarIterations(numero);
-    console.log(`Iteraciones necesarias: ${resultado.iteraciones}`);
-    console.log("Pasos:");
-    resultado.pasos.forEach(paso => console.log(paso));
+
+    //Llamamos a la funcion kaprekar para calcular las iteraciones y los pasos necesarios hasta llegar al numero Kaprekar
+    const resultado = kaprekar(numero);
+    document.write(`Iteraciones necesarias: ${resultado.iteraciones}<br>Pasos:<br>`);   //Muestra el resultado en el navegador
+    resultado.pasos.forEach(paso => document.write(`${paso}<br>`));;
 
 
 </script>
